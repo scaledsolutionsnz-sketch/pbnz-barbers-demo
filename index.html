@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PBNZ Barbers — Halswell, Christchurch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #111111;
+      --surface: #1a1a1a;
+      --surface2: #222222;
+      --accent: #c9a84c;
+      --accent-light: #e2c170;
+      --text: #f0ece4;
+      --text-muted: #a09888;
+      --off-white: #f5f0e8;
+      --radius: 14px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--primary);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(17,17,17,0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 30px rgba(0,0,0,0.5);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--text); }
+    .btn-nav {
+      background: var(--accent);
+      color: var(--primary) !important;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 0.875rem !important;
+      transition: background var(--transition), transform var(--transition) !important;
+    }
+    .btn-nav:hover {
+      background: var(--accent-light) !important;
+      transform: translateY(-1px);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1800&q=80') center/cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(17,17,17,0.88) 0%, rgba(17,17,17,0.6) 60%, rgba(201,168,76,0.15) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 32px 80px;
+      width: 100%;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 700px;
+      margin-bottom: 24px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 44px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--primary);
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.35);
+    }
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: var(--text);
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: border-color var(--transition), background var(--transition);
+      display: inline-block;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(201,168,76,0.08);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      flex-wrap: wrap;
+    }
+    .hero-stat { }
+    .hero-stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    /* ── SECTIONS ── */
+    section { position: relative; }
+
+    .section-pad { padding: 100px 0; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1.5px;
+      background: var(--accent);
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-image {
+      position: relative;
+    }
+    .about-image img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      display: block;
+    }
+    .about-image-badge {
+      position: absolute;
+      bottom: 24px;
+      right: -24px;
+      background: var(--accent);
+      color: var(--primary);
+      padding: 20px 24px;
+      border-radius: 12px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(201,168,76,0.4);
+    }
+    .about-image-badge .num {
+      font-size: 2.5rem;
+      line-height: 1;
+      display: block;
+    }
+    .about-image-badge .lbl {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+    .about-text h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .about-text h2 span { color: var(--accent); }
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .about-feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .about-feature-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .about-feature-text span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--primary); }
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 64px;
+    }
+    .services-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .services-header h2 span { color: var(--accent); }
+    .services-header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201,168,76,0.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.7;
+    }
+    .service-price {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--surface); }
+    .gallery h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+    .gallery h2 span { color: var(--accent); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 260px 260px;
+      gap: 16px;
+    }
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(17,17,17,0.6) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+    /* ── REVIEWS ── */
+    .reviews { background: var(--primary); }
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .reviews-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .reviews-header h2 span { color: var(--accent); }
+    .reviews-header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .review-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+    }
+    .review-stars {
+      color: var(--accent);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .review-text {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .review-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .review-author-info strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .review-author-info span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .google-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 48px;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    .google-badge svg { width: 20px; height: 20px; }
+
+    /* ── BOOKING / CONTACT ── */
+    .booking { background: var(--surface); }
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .booking-info h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .booking-info h2 span { color: var(--accent); }
+    .booking-info p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-item-text strong {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .contact-item-text span {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .contact-item-text a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .contact-item-text a:hover { color: var(--accent); }
+
+    /* FORM */
+    .booking-form {
+      background: var(--surface2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 44px 40px;
+    }
+    .booking-form h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(160,152,136,0.5);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      background: rgba(201,168,76,0.04);
+    }
+    .form-group select option { background: var(--surface2); color: var(--text); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      padding: 16px 32px;
+      border-radius: 10px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      letter-spacing: 0.02em;
+      margin-top: 8px;
+    }
+    .btn-submit:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.35);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a;
+      padding: 60px 0 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 16px;
+      display: block;
+      letter-spacing: -0.02em;
+    }
+    .footer-brand .logo span { color: var(--accent); }
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.75;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-col ul li {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .footer-col ul li a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-image-badge { right: 16px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .booking-grid { grid-template-columns: 1fr; gap: 48px; }
+      .services-header { grid-template-columns: 1fr; gap: 16px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { gap: 28px; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item:first-child { grid-row: span 1; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .booking-form { padding: 32px 24px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn-primary, .hero-ctas .btn-outline { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">PBNZ<span>.</span>Barbers</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#booking" class="btn-nav">Book Now</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag reveal">Halswell, Christchurch</div>
+      <h1 class="reveal reveal-delay-1">Sharp Cuts.<br/><span>Proper Style.</span></h1>
+      <p class="hero-sub reveal reveal-delay-2">
+        Christchurch's go-to barbershop for precision haircuts, hot towel shaves, and clean fades — where every detail matters.
+      </p>
+      <div class="hero-ctas reveal reveal-delay-3">
+        <a href="#booking" class="btn-primary">Book Your Appointment</a>
+        <a href="#services" class="btn-outline">View Services</a>
+      </div>
+      <div class="hero-stats reveal reveal-delay-4">
+        <div class="hero-stat">
+          <div class="hero-stat-num">500+</div>
+          <div class="hero-stat-label">Happy Clients</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">5★</div>
+          <div class="hero-stat-label">Google Rating</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">10+</div>
+          <div class="hero-stat-label">Years Experience</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about section-pad" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800&q=80" alt="PBNZ Barbers interior Halswell Christchurch" />
+          <div class="about-image-badge">
+            <span class="num">10+</span>
+            <span class="lbl">Years Cutting</span>
+          </div>
+        </div>
+        <div class="about-text">
+          <div class="section-label reveal">About PBNZ Barbers</div>
+          <h2 class="reveal">Halswell's <span>Trusted</span> Barbershop</h2>
+          <p class="reveal">
+            At PBNZ Barbers in Halswell, we believe a great haircut is more than just a trim — it's a confidence booster. Paul and the team bring precision, care, and a genuine passion for the craft to every appointment.
+          </p>
+          <p class="reveal">
+            Whether you're after a sharp fade, a classic cut, or a proper hot towel shave, you'll always leave looking and feeling your best. Walk-ins welcome, appointments preferred.
+          </p>
+          <div class="about-features">
+            <div class="about-feature reveal">
+              <div class="about-feature-icon">✂️</div>
+              <div class="about-feature-text">
+                <strong>Precision Cutting</strong>
+                <span>Every cut tailored to your face shape and style preference</span>
+              </div>
+            </div>
+            <div class="about-feature reveal reveal-delay-1">
+              <div class="about-feature-icon">🪒</div>
+              <div class="about-feature-text">
+                <strong>Hot Towel Shaves</strong>
+                <span>Traditional straight-razor shaves with premium products</span>
+              </div>
+            </div>
+            <div class="about-feature reveal reveal-delay-2">
+              <div class="about-feature-icon">📍</div>
+              <div class="about-feature-text">
+                <strong>Halswell Local</strong>
+                <span>Proudly serving the Halswell community and surrounds</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services section-pad" id="services">
+    <div class="container">
+      <div class="services-header">
+        <div>
+          <div class="section-label reveal">What We Offer</div>
+          <h2 class="reveal">Our <span>Services</span></h2>
+        </div>
+        <p class="reveal">From classic cuts to premium grooming treatments — every service delivered with expert precision.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <span class="service-icon">✂️</span>
+          <h3>Haircut &amp; Style</h3>
+          <p>A precision cut shaped to your head, styled to your preference. Includes wash, cut, and finish.</p>
+          <div class="service-price">From $35</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <span class="service-icon">🔪</span>
+          <h3>Fade &amp; Taper</h3>
+          <p>Seamless skin fades, mid fades, and tapers — blended sharp and clean every time.</p>
+          <div class="service-price">From $40</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <span class="service-icon">🪒</span>
+          <h3>Beard Trim</h3>
+          <p>Shape, define, and line up your beard for a clean, well-groomed look that lasts.</p>
+          <div class="service-price">From $20</div>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <span class="service-icon">🔥</span>
+          <h3>Hot Towel Shave</h3>
+          <p>The full traditional experience — hot towel, premium shave cream, and straight-razor finish.</p>
+          <div class="service-price">From $45</div>
+        </div>
+        <div class="service-card reveal reveal-delay-4">
+          <span class="service-icon">👦</span>
+          <h3>Kids Cuts</h3>
+          <p>Patient, friendly cuts for the young ones. We make it easy and comfortable for kids of all ages.</p>
+          <div class="service-price">From $25</div>
+        </div>
+        <div class="service-card reveal reveal-delay-5">
+          <span class="service-icon">💈</span>
+          <h3>Cut &amp; Beard Combo</h3>
+          <p>The full package — haircut plus beard trim and shape for a sharp head-to-toe look.</p>
+          <div class="service-price">From $55</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery section-pad" id="gallery">
+    <div class="container">
+      <div class="section-label reveal">Our Work</div>
+      <h2 class="reveal">Fresh Cuts, <span>Every Time</span></h2>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://images.unsplash.com/photo-1512690459411-b9245aed614b?w=800&q=80" alt="Barber fade haircut Halswell" />
+          <div class="gallery-item-overlay"></div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80" alt="Classic barbershop PBNZ" />
+          <div class="gallery-item-overlay"></div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80" alt="Hot towel shave Christchurch barber" />
+          <div class="gallery-item-overlay"></div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=600&q=80" alt="Beard trim barber Halswell" />
+          <div class="gallery-item-overlay"></div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-4">
+          <img src="https://images.unsplash.com/photo-1593702288056-f9454dc4f5f7?w=600&q=80" alt="Mens haircut styling Christchurch" />
+          <div class="gallery-item-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews section-pad" id="reviews">
+    <div class="container">
+      <div class="reviews-header">
+        <div class="section-label reveal" style="justify-content:center;">What Clients Say</div>
+        <h2 class="reveal">Loved by <span>Halswell</span></h2>
+        <p class="reveal">Don't take our word for it — here's what our regulars have to say.</p>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Best barber in Halswell, no contest. Paul always nails the fade exactly how I like it. Been coming here for over two years and never had a bad cut."</p>
+          <div class="review-author">
+            <div class="review-avatar">JM</div>
+            <div class="review-author-info">
+              <strong>James M.</strong>
+              <span>Google Review · 3 weeks ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card reveal reveal-delay-1">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Brought my son in for his first proper haircut and the team were so patient and great with him. Brilliant experience all round — we'll be back for sure."</p>
+          <div class="review-author">
+            <div class="review-avatar">SR</div>
+            <div class="review-author-info">
+              <strong>Sarah R.</strong>
+              <span>Google Review · 1 month ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Had the hot towel shave for the first time — absolutely incredible. The whole experience is top tier. Friendly, professional, and the result speaks for itself."</p>
+          <div class="review-author">
+            <div class="review-avatar">DT</div>
+            <div class="review-author-info">
+              <strong>Daniel T.</strong>
+              <span>Google Review · 2 months ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card reveal reveal-delay-3" style="display:none;"><!-- extra --></div>
+      </div>
+      <div class="google-badge reveal">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Rated 5.0 on Google · PBNZ Barbers, Halswell
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="booking section-pad" id="booking">
+    <div class="container">
+      <div class="booking-grid">
+        <div class="booking-info">
+          <div class="section-label reveal">Get In Touch</div>
+          <h2 class="reveal">Book Your <span>Appointment</span></h2>
+          <p class="reveal">Ready for a fresh cut? Fill in the form and Paul will be in touch to confirm your booking. Walk-ins also welcome when spots are available.</p>
+          <div class="contact-details">
+            <div class="contact-item reveal">
+              <div class="contact-icon">📞</div>
+              <div class="contact-item-text">
+                <strong>Phone</strong>
+                <span><a href="tel:02102474107">0210 247 4107</a></span>
+              </div>
+            </div>
+            <div class="contact-item reveal reveal-delay-1">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-item-text">
+                <strong>Email</strong>
+                <span><a href="mailto:paul.singh7@hotmail.com">paul.singh7@hotmail.com</a></span>
+              </div>
+            </div>
+            <div class="contact-item reveal reveal-delay-2">
+              <div class="contact-icon">📍</div>
+              <div class="contact-item-text">
+                <strong>Location</strong>
+                <span>Halswell, Christchurch</span>
+              </div>
+            </div>
+            <div class="contact-item reveal reveal-delay-3">
+              <div class="contact-icon">🕐</div>
+              <div class="contact-item-text">
+                <strong>Hours</strong>
+                <span>Mon–Fri: 9am–6pm · Sat: 9am–4pm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="booking-form reveal">
+          <h3>Request a Booking</h3>
+          <form action="https://api.staticforms.xyz/submit" method="post">
+            <input type="hidden" name="accessKey" value="sf_768da8d33927e7f4f241d0a6" />
+            <input type="hidden" name="subject" value="New booking from PBNZ Barbers website" />
+            <input type="hidden" name="redirectTo" value="https://pbnz-barbers-demo.vercel.app/thank-you.html" />
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="firstName" placeholder="Paul" required />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="lastName" placeholder="Smith" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="paul@example.com" required />
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" name="phone" placeholder="021 000 0000" />
+            </div>
+            <div class="form-group">
+              <label>Service</label>
+              <select name="service" required>
+                <option value="" disabled selected>Select a service</option>
+                <option value="Haircut & Style">Haircut &amp; Style</option>
+                <option value="Fade & Taper">Fade &amp; Taper</option>
+                <option value="Beard Trim">Beard Trim</option>
+                <option value="Hot Towel Shave">Hot Towel Shave</option>
+                <option value="Kids Cut">Kids Cut</option>
+                <option value="Cut & Beard Combo">Cut &amp; Beard Combo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Day &amp; Time</label>
+              <input type="text" name="preferred_time" placeholder="e.g. Tuesday afternoon" />
+            </div>
+            <div class="form-group">
+              <label>Message (Optional)</label>
+              <textarea name="message" placeholder="Any notes for your booking..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Book Appointment →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo">PBNZ<span>.</span>Barbers</span>
+          <p>Precision cuts and premium grooming in the heart of Halswell. Your style, our craft — every single time.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li>Haircut &amp; Style</li>
+            <li>Fade &amp; Taper</li>
+            <li>Beard Trim</li>
+            <li>Hot Towel Shave</li>
+            <li>Kids Cuts</li>
+            <li>Cut &amp; Beard Combo</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:02102474107">0210 247 4107</a></li>
+            <li><a href="mailto:paul.singh7@hotmail.com">paul.singh7@hotmail.com</a></li>
+            <li>Halswell, Christchurch</li>
+            <li>Mon–Fri: 9am–6pm</li>
+            <li>Sat: 9am–4pm</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 PBNZ Barbers. All rights reserved.</span>
+        <span>Halswell, Christchurch, New Zealand</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky nav
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Trigger hero reveals immediately
+    document.querySelectorAll('.hero .reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 100);
+    });
+
+    // Hamburger (mobile)
+    document.getElementById('hamburger').addEventListener('click', function() {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '72px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'rgba(17,17,17,0.98)';
+        links.style.padding = '16px 32px 24px';
+        links.style.gap = '16px';
+        links.style.backdropFilter = 'blur(12px)';
+      }
+    });
+  </script>
+</body>
+</html>
