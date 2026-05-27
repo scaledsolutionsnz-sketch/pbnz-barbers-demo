@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Private Feedback — PBNZ Barbers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #111111;
+      --surface: #1a1a1a;
+      --accent: #c9a84c;
+      --accent-light: #e2c170;
+      --text: #f0ece4;
+      --text-muted: #a09888;
+      --radius: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--primary); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1.5rem; }
+    .logo { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--accent); margin-bottom: 2.5rem; letter-spacing: -0.02em; }
+    .logo span { color: var(--accent-light); }
+    .card { background: var(--surface); border: 1px solid rgba(201,168,76,0.15); border-radius: var(--radius); padding: 3rem 2.5rem; max-width: 540px; width: 100%; }
+    h1 { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .subtitle { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.95rem;
+      padding: 0.85rem 1rem; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none; border-color: var(--accent);
+    }
+    .form-group textarea { height: 130px; resize: vertical; }
+    .form-group select option { background: #222; }
+    .stars-input { display: flex; gap: 0.5rem; }
+    .stars-input input[type="radio"] { display: none; }
+    .stars-input label { font-size: 2rem; cursor: pointer; filter: grayscale(1) opacity(0.4); transition: filter 0.15s; }
+    .stars-input input[type="radio"]:checked ~ label, .stars-input label:hover,
+    .stars-input label:hover ~ label { filter: none; }
+    .stars-input { flex-direction: row-reverse; justify-content: flex-end; }
+    .btn { width: 100%; background: var(--accent); color: #111; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; padding: 1rem; border-radius: 50px; border: none; cursor: pointer; margin-top: 0.5rem; transition: all 0.2s; }
+    .btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .success { text-align: center; padding: 2rem; display: none; }
+    .success h2 { font-family: 'Syne', sans-serif; font-size: 1.6rem; color: var(--accent); margin-bottom: 0.75rem; }
+    .success p { color: var(--text-muted); line-height: 1.7; }
+  </style>
+</head>
+<body>
+  <div class="logo">PBNZ<span>.</span>Barbers</div>
+  <div class="card">
+    <div id="formWrap">
+      <h1>Private Feedback</h1>
+      <p class="subtitle">Your feedback is private and goes directly to us. We genuinely want to know how we can do better — thank you for taking the time.</p>
+      <form action="https://api.staticforms.xyz/submit" method="post" id="feedbackForm">
+        <input type="hidden" name="apiKey" value="sf_768da8d33927e7f4f241d0a6" />
+        <input type="hidden" name="subject" value="Private Feedback — PBNZ Barbers" />
+        <input type="hidden" name="redirectTo" value="" />
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="name" placeholder="First name" required />
+        </div>
+        <div class="form-group">
+          <label>Email (optional)</label>
+          <input type="email" name="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Your Rating</label>
+          <select name="rating" required>
+            <option value="" disabled selected>Select a rating</option>
+            <option value="1 star">1 star</option>
+            <option value="2 stars">2 stars</option>
+            <option value="3 stars">3 stars</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell Us What Happened</label>
+          <textarea name="message" placeholder="What could we have done better? Any specific details help us improve..." required></textarea>
+        </div>
+        <button type="submit" class="btn">Submit Feedback</button>
+      </form>
+    </div>
+    <div class="success" id="successMsg">
+      <h2>Thank You</h2>
+      <p>We've received your feedback and we genuinely appreciate you taking the time. We'll use this to improve our service — and if you'd like us to follow up, we'll be in touch.</p>
+    </div>
+  </div>
+  <script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = this;
+      fetch('https://api.staticforms.xyz/submit', {
+        method: 'POST',
+        body: new FormData(form)
+      }).then(() => {
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      }).catch(() => {
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
